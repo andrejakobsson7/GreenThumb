@@ -4,7 +4,7 @@ namespace GreenThumb.Managers
 {
     public static class ImageManager
     {
-        public static BitmapImage GetLogo()
+        public static BitmapImage GetLogo(System.Windows.Media.ImageSource imgLogo)
         {
             BitmapImage newBmI = new();
             newBmI.BeginInit();

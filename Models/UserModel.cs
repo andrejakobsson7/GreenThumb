@@ -14,5 +14,11 @@ namespace GreenThumb.Models
 
         [Column("password")]
         public string Password { get; set; } = null!;
+
+        public UserModel(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
     }
 }
