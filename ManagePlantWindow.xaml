@@ -1,0 +1,190 @@
+﻿<Window x:Class="GreenThumb.ManagePlantWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GreenThumb"
+        mc:Ignorable="d"
+        Title="ManagePlantWindow" Height="650" Width="600" Background="GhostWhite" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="1.8*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <!--Images-->
+        <Image
+            Name="imgLogo"
+            Grid.Column="1"
+            Grid.Row="1"
+            />
+
+        <!--Labels-->
+        <Label
+            Name="lblAction"
+            Content="Add new plant"
+            Grid.Column="2"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            FontSize="20"
+            FontFamily="Arial"
+            VerticalContentAlignment="Bottom"
+            />
+        <Label
+            Content="Plant name"
+            Grid.Column="1"
+            Grid.Row="2"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="left"
+            />
+        <Label
+            Content="Care instruction"
+            Grid.Column="1"
+            Grid.Row="3"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="left"
+            />
+        <Label
+            Content="All care instructions"
+            Grid.Column="1"
+            Grid.Row="4"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="left"
+            />
+        <Label
+            Content="Planted date"
+            Grid.Column="1"
+            Grid.Row="6"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left"
+            />
+        
+        <!--Textboxes-->
+        <TextBox
+            Name="txtPlantName"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="2"
+            Height="30"
+            BorderBrush="DarkGreen"
+            VerticalContentAlignment="Center"
+            FontFamily="Arial"
+            />
+        <TextBox
+            Name="txtCareInstruction"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="3"
+            Height="30"
+            BorderBrush="DarkGreen"
+            VerticalContentAlignment="Center"
+            FontFamily="Arial"
+            />
+        
+        <!--Datepickers-->
+        <DatePicker
+            Grid.Column="2"
+            Grid.Row="6"
+            Grid.ColumnSpan="2"
+            Height="30"
+            BorderBrush="darkgreen"
+            VerticalContentAlignment="Center"
+            />
+        
+        <!--Listboxes-->
+        <ListBox
+            Name="lstCareInstructions"
+            Grid.Column="2"
+            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.RowSpan="2"
+            FontFamily="Arial"
+            FontSize="15"
+            BorderBrush="darkgreen"
+            />
+
+
+        <!--Buttons-->
+        <Button
+            Name="btnReturn"
+            Content="Return"
+            Grid.Column="4"
+            Grid.Row="1"
+            Height="24"
+            Width="100"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            HorizontalContentAlignment="Right"
+            FontSize="15"
+            Background="transparent"
+            BorderBrush="transparent"
+            Foreground="orange" Click="btnReturn_Click"
+            />
+        <Button
+            Name="btnSave"
+            Content="Save"
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Grid.Row="7"
+            Height="45"
+            Width="120"
+            FontFamily="Arial"
+            FontSize="20"
+            Background="#FF023733"
+            Foreground="white"
+            BorderBrush="Black"
+            />
+
+        <Button
+            Name="btnAddCareInstruction"
+            Content="Add"
+            Grid.Column="4"
+            Grid.Row="3"
+            Height="30"
+            Width="75"
+            FontFamily="Arial"
+            FontSize="15"
+            BorderBrush="DarkGreen" Click="btnAddCareInstruction_Click"
+            />
+        <Button
+            Name="btnRemoveCareInstruction"
+            Content="Remove"
+            Grid.Column="4"
+            Grid.Row="4"
+            Grid.RowSpan="2"
+            Height="30"
+            Width="75"
+            FontFamily="Arial"
+            FontSize="15"
+            BorderBrush="DarkGreen" Click="btnRemoveCareInstruction_Click"
+            />
+
+
+    </Grid>
+</Window>
