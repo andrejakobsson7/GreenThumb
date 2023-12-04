@@ -15,6 +15,7 @@ namespace GreenThumb.Models
         [Column("user_id")]
         public int UserId { get; set; }
 
+        public UserModel User { get; set; } = null!;
         public List<GardenPlant> GardenPlants { get; set; } = new();
     }
 }
