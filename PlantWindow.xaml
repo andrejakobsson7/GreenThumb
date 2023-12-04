@@ -45,6 +45,7 @@
             VerticalContentAlignment="center"
             />
         <Label
+            Name="lblWelcomeUser"
             Content="Welcome {username}"
             Grid.Column="2"
             Grid.Row="1"
@@ -66,6 +67,7 @@
         
         <!--Textboxes-->
         <TextBox
+            Name="txtSearch"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Grid.Row="3"
@@ -113,7 +115,7 @@
             FontFamily="Arial"
             HorizontalAlignment="Right"
             FontSize="15"
-            BorderBrush="black"
+            BorderBrush="black" Click="btnSearch_Click"
             />
         <Button
             Name="btnSignOut"
@@ -167,7 +169,7 @@
             FontSize="15"
             Background="IndianRed"
             Foreground="white"
-            BorderBrush="Black"
+            BorderBrush="Black" Click="btnRemove_Click"
             />
     </Grid>
 </Window>
