@@ -31,10 +31,19 @@ namespace GreenThumb
                 if (isValidPassword)
                 {
                     UserModel newUser = new(txtUsername.Text, pbPassword.Password);
-                    await AddUserAsync(newUser);
+                    using (AppDbContext context = new())
+                    {
+                        GreenThumbUow uow = new(context);
+                        await uow.UserRepo.AddUserAsync(newUser);
+                        await uow.CompleteAsync();
+                        GardenModel newGarden = new($"{newUser.Username}'s garden", newUser.UserId);
+                        await uow.GardenRepo.AddGardenAsync(newGarden);
+                        await uow.CompleteAsync();
+                    }
+                    //await AddUserAsync(newUser);
                     ConfirmRegistration(newUser.Username);
                     RedirectToLoginPage();
-                    //When a user is added there is a trigger in SQL creating a garden for the user
+                    //When a user is added there is a trigger in SQL creating a garden for the user NOT ANYMORE
                 }
             }
 
@@ -86,6 +95,10 @@ namespace GreenThumb
                 await uow.UserRepo.AddUserAsync(newUser);
                 await uow.CompleteAsync();
             }
+        }
+        async private Task AddGardenAsync(GardenModel newGarden)
+        {
+
         }
         private void ConfirmRegistration(string username)
         {

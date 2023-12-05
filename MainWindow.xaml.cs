@@ -33,10 +33,7 @@ namespace GreenThumb
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            RegisterWindow rW = new();
-            rW.Show();
-
-            Close();
+            RedirectToRegisterWindow();
         }
 
         async private Task<UserModel?> SignIn(string username, string password)
@@ -58,6 +55,14 @@ namespace GreenThumb
         {
             PlantWindow pw = new();
             pw.Show();
+
+            Close();
+        }
+
+        private void RedirectToRegisterWindow()
+        {
+            RegisterWindow rW = new();
+            rW.Show();
 
             Close();
         }

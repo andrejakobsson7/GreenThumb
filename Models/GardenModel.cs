@@ -17,5 +17,17 @@ namespace GreenThumb.Models
 
         public UserModel User { get; set; } = null!;
         public List<GardenPlant> GardenPlants { get; set; } = new();
+
+        public GardenModel()
+        {
+
+        }
+
+        public GardenModel(string gardenName, int userid)
+        {
+            GardenName = gardenName;
+            UserId = userid;
+        }
+
     }
 }

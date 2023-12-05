@@ -29,5 +29,10 @@ namespace GreenThumb.Database.Repositories
                 MessageBox.Show("Garden could not be located", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+        async public Task AddGardenAsync(GardenModel newGarden)
+        {
+            await _context.Gardens.AddAsync(newGarden);
+        }
     }
 }
