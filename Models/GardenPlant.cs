@@ -12,5 +12,11 @@ namespace GreenThumb.Models
         public int PlantId { get; set; }
         public PlantModel Plant { get; set; } = null!;
 
+        public GardenPlant(int gardenId, int plantId)
+        {
+            GardenId = gardenId;
+            PlantId = plantId;
+        }
+
     }
 }

@@ -23,7 +23,7 @@ namespace GreenThumb.Database.Repositories
         }
         async public Task<UserModel?> SignInUser(string username, string password)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            return await _context.Users.Include(u => u.Garden).FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
         }
     }
 }

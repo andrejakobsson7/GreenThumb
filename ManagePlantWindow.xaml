@@ -12,7 +12,7 @@
             <ColumnDefinition Width="1.8*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1.1*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -159,6 +159,21 @@
             Foreground="orange" Click="btnReturn_Click"
             />
         <Button
+            Name="btnAddToMyGarden"
+            Content="Add to my garden"
+            Grid.Column="4"
+            Grid.Row="1"
+            Height="30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            FontSize="15"
+            FontFamily="Arial"
+            Background="transparent"
+            BorderBrush="transparent"
+            Foreground="Blue" Click="btnAddToMyGarden_Click"
+            Visibility="Collapsed"
+            />
+        <Button
             Name="btnSave"
             Content="Save"
             Grid.Column="2"
@@ -185,6 +200,7 @@
             Background="Orange"
             Foreground="GhostWhite"
             BorderBrush="Black" Click="btnEdit_Click"
+            Visibility="Collapsed"
             />
 
         <Button

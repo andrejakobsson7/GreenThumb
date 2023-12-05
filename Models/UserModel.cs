@@ -15,6 +15,9 @@ namespace GreenThumb.Models
         [Column("password")]
         public string Password { get; set; } = null!;
 
+        //Navigation property. WIll this work?
+        public GardenModel Garden { get; set; }
+
         public UserModel(string username, string password)
         {
             Username = username;

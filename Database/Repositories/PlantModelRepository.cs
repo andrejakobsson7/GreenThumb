@@ -24,6 +24,11 @@ namespace GreenThumb.Database.Repositories
             return await _context.Plants.Where(p => p.Name.Contains(plantName)).ToListAsync();
         }
 
+        async public Task<PlantModel?> GetPlantByName(string plantName)
+        {
+            return await _context.Plants.FirstOrDefaultAsync(p => p.Name == plantName);
+        }
+
         async public Task<PlantModel?> GetPlantByIdAsync(int plantId)
         {
             return await _context.Plants.FirstOrDefaultAsync(p => p.PlantId == plantId);

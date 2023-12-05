@@ -92,7 +92,7 @@ namespace GreenThumb
                 if (answer == MessageBoxResult.OK)
                 {
                     await RemovePlantAsync(selectedPlant.PlantId);
-                    GetAllPlantsAsync();
+                    lstPlants.Items.Remove(selectedItem);
                 }
             }
         }
@@ -146,6 +146,17 @@ namespace GreenThumb
                 PlantModel selectedPlant = (PlantModel)selectedItem.Tag;
                 RedirectToManagePlantWindowToSeeDetails(selectedPlant);
             }
+        }
+
+        private void btnGoToMyGarden_Click(object sender, RoutedEventArgs e)
+        {
+            RedirectToMyGardenWindow();
+        }
+        private void RedirectToMyGardenWindow()
+        {
+            MyGardenWindow mgw = new();
+            mgw.Show();
+            Close();
         }
     }
 }

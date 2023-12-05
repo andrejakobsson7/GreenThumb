@@ -13,25 +13,24 @@ namespace GreenThumb
     public partial class ManagePlantWindow : Window
     {
         public PlantModel? PlantToDisplay { get; set; }
-        //Adding new plant
+
+
         public ManagePlantWindow()
         {
+            //Adding new plant
             InitializeComponent();
             LoadLogo();
         }
 
-        //See details/update existing plant
         public ManagePlantWindow(PlantModel plantToDisplay)
         {
+            //See details/update existing plant
             InitializeComponent();
             PlantToDisplay = plantToDisplay;
             LoadLogo();
             LoadAllPlantInformation();
             ActivateReadOnlyMode();
-            //Load in information about the passed along plant
 
-            //Enable "edit"-button, if clicked - enable all fields and enable save-button.
-            //Enable button to add plant to "my garden".
         }
 
         private void LoadLogo()
@@ -49,10 +48,12 @@ namespace GreenThumb
             btnRemoveCareInstruction.Visibility = Visibility.Collapsed;
             dpPlantDate.IsEnabled = false;
             btnSave.Visibility = Visibility.Collapsed;
+            btnEdit.Visibility = Visibility.Visible;
+            btnAddToMyGarden.Visibility = Visibility.Visible;
         }
         private void LoadAllPlantInformation()
         {
-            txtPlantName.Text = PlantToDisplay.Name;
+            txtPlantName.Text = PlantToDisplay!.Name;
             dpPlantDate.SelectedDate = PlantToDisplay.PlantDate;
             foreach (var instruction in PlantToDisplay.Instructions)
             {
@@ -175,16 +176,27 @@ namespace GreenThumb
                     if (PlantToDisplay == null)
                     {
                         //Add new
-                        await uow.PlantRepo.AddPlantAsync(newPlant);
-                        await uow.CompleteAsync();
-                        foreach (var plant in lstCareInstructions.Items)
+                        //Check if plant exists with that name. If not, add new.
+                        var plantExist = await uow.PlantRepo.GetPlantByName(newPlant.Name);
+                        if (plantExist == null)
                         {
-                            ListBoxItem item = (ListBoxItem)plant;
-                            InstructionModel newInstruction = new(item.Content.ToString()!, newPlant.PlantId);
-                            await uow.InstructionRepo.AddInstructionAsync(newInstruction);
+                            await uow.PlantRepo.AddPlantAsync(newPlant);
+                            await uow.CompleteAsync();
+                            foreach (var plant in lstCareInstructions.Items)
+                            {
+                                ListBoxItem item = (ListBoxItem)plant;
+                                InstructionModel newInstruction = new(item.Content.ToString()!, newPlant.PlantId);
+                                await uow.InstructionRepo.AddInstructionAsync(newInstruction);
+                            }
+                            await uow.CompleteAsync();
+                            MessageBox.Show("Plant was successfully registered!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                            UpdateUi();
                         }
-                        await uow.CompleteAsync();
-                        MessageBox.Show("Plant was successfully registered!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                        else
+                        {
+                            MessageBox.Show($"Plant with name {newPlant.Name} already exists, please choose another name!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+
                     }
                     else
                     {
@@ -192,8 +204,8 @@ namespace GreenThumb
                         var plantToUpdate = await uow.PlantRepo.GetPlantByIdAsync(PlantToDisplay.PlantId);
                         if (plantToUpdate != null)
                         {
-                            plantToUpdate.Name = txtPlantName.Text;
-                            plantToUpdate.PlantDate = (DateTime)dpPlantDate.SelectedDate;
+                            plantToUpdate.Name = newPlant.Name;
+                            plantToUpdate.PlantDate = newPlant.PlantDate;
                             //Delete all instructions
                             await uow.InstructionRepo.RemoveInstructionsByPlantId(PlantToDisplay.PlantId);
                             await uow.CompleteAsync();
@@ -206,7 +218,7 @@ namespace GreenThumb
                             }
                             await uow.CompleteAsync();
                             MessageBox.Show("Plant was successfully updated!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                            UpdateUi();
                         }
                     }
                 }
@@ -236,6 +248,31 @@ namespace GreenThumb
             dpPlantDate.IsEnabled = true;
             btnEdit.Visibility = Visibility.Collapsed;
             btnSave.Visibility = Visibility.Visible;
+            btnAddToMyGarden.Visibility = Visibility.Collapsed;
         }
+
+        async private void btnAddToMyGarden_Click(object sender, RoutedEventArgs e)
+        {
+            GardenPlant newGardenPlant = new(UserManager.SignedInUser!.Garden.GardenId, PlantToDisplay!.PlantId);
+            using (AppDbContext context = new())
+            {
+                GreenThumbUow uow = new(context);
+                await uow.GardenPlantRepo.AddGardenPlantAsync(newGardenPlant);
+                try
+                {
+                    await uow.CompleteAsync();
+                    MessageBox.Show($"{PlantToDisplay.Name} was successfully added to {UserManager.SignedInUser!.Garden.GardenName}!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    MessageBox.Show($"{PlantToDisplay.Name} already exists in {UserManager.SignedInUser!.Garden.GardenName} and cannot be added again!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Something unexpected went wrong, please contact your system administrator\n{ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
     }
 }
