@@ -13,13 +13,12 @@ namespace GreenThumb
     public partial class PlantWindow : Window
     {
 
-        public PlantWindow(UserModel signedInUser)
+        public PlantWindow()
         {
             InitializeComponent();
-            WelcomeUser(signedInUser);
+            WelcomeUser(UserManager.SignedInUser!);
             LoadLogo();
             GetAllPlantsAsync();
-
         }
 
         public void LoadLogo()
@@ -29,7 +28,7 @@ namespace GreenThumb
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
-            RedirectToLoginPage();
+            SignOutAndRedirectToLoginPage();
         }
 
         async private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -39,8 +38,9 @@ namespace GreenThumb
             DisplayAllPlants(filteredList);
         }
 
-        private void RedirectToLoginPage()
+        private void SignOutAndRedirectToLoginPage()
         {
+            UserManager.SignedInUser = null;
             MainWindow mw = new();
             mw.Show();
 
@@ -118,7 +118,34 @@ namespace GreenThumb
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
+            RedirectToManagePlantWindowToAddNewPlant();
+        }
 
+        private void RedirectToManagePlantWindowToAddNewPlant()
+        {
+            ManagePlantWindow mpw = new();
+            mpw.Show();
+
+            Close();
+        }
+
+        private void RedirectToManagePlantWindowToSeeDetails(PlantModel selectedPlant)
+        {
+            ManagePlantWindow mpw = new(selectedPlant);
+            mpw.Show();
+
+            Close();
+        }
+
+        private void btnDetails_Click(object sender, RoutedEventArgs e)
+        {
+            bool isValidPlant = ValidateItemHasBeenSelected(lstPlants.SelectedItem);
+            if (isValidPlant)
+            {
+                ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
+                PlantModel selectedPlant = (PlantModel)selectedItem.Tag;
+                RedirectToManagePlantWindowToSeeDetails(selectedPlant);
+            }
         }
     }
 }

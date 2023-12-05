@@ -24,10 +24,10 @@ namespace GreenThumb
 
         private async void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
-            var userToSignIn = await SignIn(txtUsername.Text, pbPassword.Password);
-            if (userToSignIn != null)
+            UserManager.SignedInUser = await SignIn(txtUsername.Text, pbPassword.Password);
+            if (UserManager.SignedInUser != null)
             {
-                RedirectToPlantWindow(userToSignIn);
+                RedirectToPlantWindow();
             }
         }
 
@@ -54,9 +54,9 @@ namespace GreenThumb
             }
         }
 
-        private void RedirectToPlantWindow(UserModel userToSignIn)
+        private void RedirectToPlantWindow()
         {
-            PlantWindow pw = new(userToSignIn);
+            PlantWindow pw = new();
             pw.Show();
 
             Close();

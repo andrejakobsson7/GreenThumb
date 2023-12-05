@@ -143,7 +143,7 @@
             FontSize="15"
             Background="#FF023733"
             Foreground="white"
-            BorderBrush="Black"
+            BorderBrush="Black" Click="btnAdd_Click"
             />
         <Button
             Name="btnDetails"
@@ -156,7 +156,7 @@
             FontSize="15"
             Background="Orange"
             Foreground="white"
-            BorderBrush="Black"
+            BorderBrush="Black" Click="btnDetails_Click"
             />
         <Button
             Name="btnRemove"

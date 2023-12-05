@@ -34,6 +34,17 @@
             />
 
         <!--Labels-->
+
+        <Label
+            Content="Green Thumbs inc."
+            Grid.Column="2"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalContentAlignment="center"
+            />
         <Label
             Name="lblAction"
             Content="Add new plant"
@@ -109,6 +120,7 @@
         
         <!--Datepickers-->
         <DatePicker
+            Name="dpPlantDate"
             Grid.Column="2"
             Grid.Row="6"
             Grid.ColumnSpan="2"
@@ -125,7 +137,6 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
             FontFamily="Arial"
-            FontSize="15"
             BorderBrush="darkgreen"
             />
 
@@ -158,7 +169,7 @@
             FontSize="20"
             Background="#FF023733"
             Foreground="white"
-            BorderBrush="Black"
+            BorderBrush="Black" Click="btnSave_Click"
             />
 
         <Button
@@ -170,7 +181,8 @@
             Width="75"
             FontFamily="Arial"
             FontSize="15"
-            BorderBrush="DarkGreen" Click="btnAddCareInstruction_Click"
+            Background="Blue"
+            Foreground="GhostWhite" Click="btnAddCareInstruction_Click"
             />
         <Button
             Name="btnRemoveCareInstruction"
@@ -182,7 +194,8 @@
             Width="75"
             FontFamily="Arial"
             FontSize="15"
-            BorderBrush="DarkGreen" Click="btnRemoveCareInstruction_Click"
+            Background="IndianRed"
+            Click="btnRemoveCareInstruction_Click"
             />
 
 

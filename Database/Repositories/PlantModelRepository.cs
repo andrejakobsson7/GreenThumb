@@ -39,5 +39,9 @@ namespace GreenThumb.Database.Repositories
                 MessageBox.Show("Plant could not be removed, try again later!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        async public Task AddPlantAsync(PlantModel newPlant)
+        {
+            await _context.Plants.AddAsync(newPlant);
+        }
     }
 }

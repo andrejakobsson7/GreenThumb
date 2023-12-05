@@ -18,6 +18,17 @@ namespace GreenThumb.Models
         public List<InstructionModel> Instructions { get; set; } = new();
         public List<GardenPlant> GardenPlants { get; set; } = new();
 
+        public PlantModel()
+        {
+
+        }
+
+        public PlantModel(string plantName, DateTime plantDate)
+        {
+            Name = plantName;
+            PlantDate = plantDate;
+        }
+
         public override string ToString()
         {
             return $"{Name}";
