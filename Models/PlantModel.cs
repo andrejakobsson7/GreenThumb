@@ -15,6 +15,7 @@ namespace GreenThumb.Models
         [Column("plant_date")]
         public DateTime PlantDate { get; set; }
 
+
         public List<InstructionModel> Instructions { get; set; } = new();
         public List<GardenPlant> GardenPlants { get; set; } = new();
 

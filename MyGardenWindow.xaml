@@ -17,7 +17,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -33,6 +33,49 @@
             Grid.Row="1"
             />
 
+        <Border
+            BorderThickness="1"
+            BorderBrush="#FF023733"
+            Grid.Column="1"
+            Grid.Row="2"
+            Margin="10"
+            >
+            <Image
+                Name="imgPlant1"
+                Grid.Column="1"
+                Grid.Row="2"
+                Grid.RowSpan="2"
+            />
+        </Border>
+        <Border
+            BorderThickness="1"
+            BorderBrush="#FF023733"
+            Grid.Column="2"
+            Grid.Row="2"
+            Margin="10"
+            >
+            <Image
+                Name="imgPlant2"
+                Grid.Column="2"
+                Grid.Row="2"
+                Grid.RowSpan="2"
+            />
+        </Border>
+        <Border
+            BorderThickness="1"
+            BorderBrush="#FF023733"
+            Grid.Column="3"
+            Grid.Row="2"
+            Margin="10"
+            >
+            <Image
+                Name="imgPlant3"
+                Grid.Column="3"
+                Grid.Row="2"
+                Grid.RowSpan="2"
+            />
+        </Border>
+
         <!--Labels-->
         <Label
             Content="Green Thumbs inc."
@@ -42,6 +85,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="Bold"
+            Padding="0"
             VerticalContentAlignment="center"
             />
         <Label
@@ -52,6 +96,7 @@
             Grid.ColumnSpan="2"
             FontSize="20"
             FontFamily="Arial"
+            Padding="0"
             VerticalContentAlignment="Bottom"
             />
         <Label
@@ -61,6 +106,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="bold"
+            Padding="10 0 0 0"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             />
@@ -76,7 +122,6 @@
             HorizontalAlignment="Left"
             VerticalContentAlignment="Center"
             FontFamily="Arial"
-            FontStyle="Italic"
             IsReadOnly="True"
             />
 
@@ -88,8 +133,8 @@
             Grid.Row="4"
             Grid.RowSpan="3"
             FontFamily="Arial"
+            Margin="10 0 10 0"
             />
-
 
         <!--Buttons-->
         <Button
@@ -120,8 +165,8 @@
             BorderBrush="black" 
             Background="orange"
             Foreground="GhostWhite"
-            Visibility="Visible"
-            Click="btnEdit_Click"
+            Margin="0 0 10 0"
+            Visibility="Visible" Click="btnEdit_Click"
             />
         <Button
             Name="btnReturn"
@@ -134,11 +179,11 @@
             VerticalAlignment="Top"
             HorizontalContentAlignment="Right"
             FontSize="15"
+            Margin="0 0 10 0"
             Background="transparent"
             BorderBrush="transparent"
             Foreground="orange" Click="btnReturn_Click"
             />
-
         <Button
             Name="btnDetails"
             Content="See details"

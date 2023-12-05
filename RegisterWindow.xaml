@@ -59,6 +59,7 @@
             Grid.ColumnSpan="2"
             FontSize="20"
             FontFamily="Arial"
+            Padding="0"
             VerticalContentAlignment="Bottom"
             />
         <Label
@@ -69,6 +70,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="Bold"
+            Padding="0"
             VerticalContentAlignment="center"
             />
 

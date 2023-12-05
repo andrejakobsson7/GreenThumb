@@ -5,21 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GreenThumb"
         mc:Ignorable="d"
-        Title="ManagePlantWindow" Height="650" Width="600" Background="GhostWhite" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize">
+        Title="ManagePlantWindow" Height="650" Width="800" Background="GhostWhite" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="1.85*"/>
+            <ColumnDefinition Width="1.6*"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
-            <ColumnDefinition Width="1.1*"/>
+            <ColumnDefinition Width="1.6*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="2*"/>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="2*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -32,6 +32,21 @@
             Grid.Column="1"
             Grid.Row="1"
             />
+        <Border
+            BorderThickness="1"
+            BorderBrush="#FF023733"
+            Grid.Column="4"
+            Grid.Row="2"
+            Grid.RowSpan="2"
+            Margin="10 18 0 0"
+            >
+            <Image
+                Name="imgPlantImage"
+                Grid.Column="4"
+                Grid.Row="1"
+                Grid.RowSpan="2"
+            />
+        </Border>
 
         <!--Labels-->
 
@@ -43,6 +58,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="Bold"
+            Padding="0"
             VerticalContentAlignment="center"
             />
         <Label
@@ -53,6 +69,7 @@
             Grid.ColumnSpan="2"
             FontSize="20"
             FontFamily="Arial"
+            Padding="0"
             VerticalContentAlignment="Bottom"
             />
         <Label
@@ -96,7 +113,7 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             />
-        
+
         <!--Textboxes-->
         <TextBox
             Name="txtPlantName"
@@ -104,7 +121,7 @@
             Grid.ColumnSpan="2"
             Grid.Row="2"
             Height="30"
-            BorderBrush="DarkGreen"
+            BorderBrush="#FF023733"
             VerticalContentAlignment="Center"
             FontFamily="Arial"
             />
@@ -113,12 +130,15 @@
             Grid.Column="2"
             Grid.ColumnSpan="2"
             Grid.Row="3"
-            Height="30"
-            BorderBrush="DarkGreen"
-            VerticalContentAlignment="Center"
+            Margin="0 20 0 20"
+            Width="200"
+            TextWrapping="Wrap"
+            BorderBrush="#FF023733"
+            VerticalContentAlignment="Top"
+            HorizontalAlignment="Left"
             FontFamily="Arial"
             />
-        
+
         <!--Datepickers-->
         <DatePicker
             Name="dpPlantDate"
@@ -126,10 +146,10 @@
             Grid.Row="6"
             Grid.ColumnSpan="2"
             Height="30"
-            BorderBrush="darkgreen"
+            BorderBrush="#FF023733"
             VerticalContentAlignment="Center"
             />
-        
+
         <!--Listboxes-->
         <ListBox
             Name="lstCareInstructions"
@@ -138,7 +158,7 @@
             Grid.ColumnSpan="2"
             Grid.RowSpan="2"
             FontFamily="Arial"
-            BorderBrush="darkgreen"
+            BorderBrush="#FF023733"
             />
 
 
@@ -206,12 +226,13 @@
         <Button
             Name="btnAddCareInstruction"
             Content="Add"
-            Grid.Column="4"
+            Grid.Column="3"
             Grid.Row="3"
             Height="30"
             Width="75"
             FontFamily="Arial"
             FontSize="15"
+            HorizontalAlignment="Right"
             Background="Blue"
             Foreground="GhostWhite" Click="btnAddCareInstruction_Click"
             />
@@ -224,9 +245,26 @@
             Height="30"
             Width="75"
             FontFamily="Arial"
+            HorizontalAlignment="Left"
+            Margin="10 0 0 0"
             FontSize="15"
             Background="IndianRed"
             Click="btnRemoveCareInstruction_Click"
+            />
+        <Button
+            Name="btnAddPlantImage"
+            Content="Add image"
+            Grid.Column="4"
+            Grid.Row="4"
+            Height="28"
+            Width="75"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            FontFamily="Arial"
+            FontSize="15"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Foreground="Blue" Click="btnAddPlantImage_Click"
             />
 
 

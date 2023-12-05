@@ -2,6 +2,7 @@
 using GreenThumb.Database.Repositories;
 using GreenThumb.Managers;
 using GreenThumb.Models;
+using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -50,6 +51,7 @@ namespace GreenThumb
             btnSave.Visibility = Visibility.Collapsed;
             btnEdit.Visibility = Visibility.Visible;
             btnAddToMyGarden.Visibility = Visibility.Visible;
+            btnAddPlantImage.Visibility = Visibility.Collapsed;
         }
         private void LoadAllPlantInformation()
         {
@@ -249,6 +251,7 @@ namespace GreenThumb
             btnEdit.Visibility = Visibility.Collapsed;
             btnSave.Visibility = Visibility.Visible;
             btnAddToMyGarden.Visibility = Visibility.Collapsed;
+            btnAddPlantImage.Visibility = Visibility.Visible;
         }
 
         async private void btnAddToMyGarden_Click(object sender, RoutedEventArgs e)
@@ -274,5 +277,16 @@ namespace GreenThumb
             }
         }
 
+        private void btnAddPlantImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image files (*.jpg;*.jpeg;*.png;*.pdf) | *.jpg;*.jpeg;*.png;*.pdf | All files (*.*) | *.*";
+            bool? userOption = ofd.ShowDialog();
+            if (userOption == true)
+            {
+                //Save file
+                imgPlantImage.Source = ImageManager.GetPlantImage(ofd.FileName);
+            }
+        }
     }
 }

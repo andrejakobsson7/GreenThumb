@@ -13,5 +13,15 @@ namespace GreenThumb.Managers
             return newBmI;
         }
 
+        public static BitmapImage GetPlantImage(string filePath)
+        {
+            BitmapImage newBmI = new();
+            newBmI.BeginInit();
+            newBmI.DecodePixelWidth = 220;
+            newBmI.UriSource = new Uri($@"{filePath}");
+            newBmI.EndInit();
+            return newBmI;
+        }
+
     }
 }
