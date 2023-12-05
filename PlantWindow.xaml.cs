@@ -52,7 +52,7 @@ namespace GreenThumb
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);
-                var plantList = await uow.PlantRepo.GetAllPlantsAsync();
+                var plantList = await uow.PlantRepo.GetPlantsWithIncludedDataAsync();
                 DisplayAllPlants(plantList);
             }
         }

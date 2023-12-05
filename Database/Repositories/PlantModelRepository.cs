@@ -13,10 +13,11 @@ namespace GreenThumb.Database.Repositories
             _context = context;
         }
 
-        async public Task<List<PlantModel>> GetAllPlantsAsync()
+        async public Task<List<PlantModel>> GetPlantsWithIncludedDataAsync()
         {
-            return await _context.Plants.ToListAsync();
+            return await _context.Plants.Include(p => p.Instructions).ToListAsync();
         }
+
 
         async public Task<List<PlantModel>> GetPlantsByNameAsync(string plantName)
         {

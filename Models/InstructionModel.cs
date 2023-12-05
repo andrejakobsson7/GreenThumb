@@ -27,5 +27,9 @@ namespace GreenThumb.Models
             Description = description;
             PlantId = plantId;
         }
+        public override string ToString()
+        {
+            return $"{Description}";
+        }
     }
 }
