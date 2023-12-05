@@ -38,7 +38,7 @@ namespace GreenThumb
 
         private void DisplayGardenName()
         {
-            txtGardenName.Text = UserManager.SignedInUser!.Garden.GardenName;
+            txtGardenName.Text = UserManager.SignedInUser!.Garden!.GardenName;
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
@@ -54,10 +54,10 @@ namespace GreenThumb
                 using (AppDbContext context = new())
                 {
                     GreenThumbUow uow = new(context);
-                    await uow.GardenRepo.UpdateGardenNameAsync(UserManager.SignedInUser!.Garden, txtGardenName.Text);
+                    await uow.GardenRepo.UpdateGardenNameAsync(UserManager.SignedInUser!.Garden!, txtGardenName.Text);
                     await uow.CompleteAsync();
                     MessageBox.Show("Garden name was successfully updated!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
-                    UserManager.SignedInUser!.Garden.GardenName = txtGardenName.Text;
+                    UserManager.SignedInUser!.Garden!.GardenName = txtGardenName.Text;
                     DisplayGardenName();
                     ActivateReadOnlyMode();
                 }
@@ -92,7 +92,7 @@ namespace GreenThumb
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);
-                var gardenPlants = await uow.GardenPlantRepo.GetAllGardensByGardenIdWithRelatedDataAsync(UserManager.SignedInUser!.Garden.GardenId);
+                var gardenPlants = await uow.GardenPlantRepo.GetAllGardensByGardenIdWithRelatedDataAsync(UserManager.SignedInUser!.Garden!.GardenId);
                 DisplayAllPlants(gardenPlants);
             }
         }

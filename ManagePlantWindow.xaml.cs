@@ -253,7 +253,7 @@ namespace GreenThumb
 
         async private void btnAddToMyGarden_Click(object sender, RoutedEventArgs e)
         {
-            GardenPlant newGardenPlant = new(UserManager.SignedInUser!.Garden.GardenId, PlantToDisplay!.PlantId);
+            GardenPlant newGardenPlant = new(UserManager.SignedInUser!.Garden!.GardenId, PlantToDisplay!.PlantId);
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);

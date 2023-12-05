@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EntityFrameworkCore.EncryptColumn.Attribute;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GreenThumb.Models
@@ -13,10 +14,11 @@ namespace GreenThumb.Models
         public string Username { get; set; } = null!;
 
         [Column("password")]
+        [EncryptColumn]
         public string Password { get; set; } = null!;
 
         //Navigation property. WIll this work?
-        public GardenModel Garden { get; set; }
+        public GardenModel? Garden { get; set; }
 
         public UserModel(string username, string password)
         {

@@ -40,7 +40,6 @@ namespace GreenThumb
                         await uow.GardenRepo.AddGardenAsync(newGarden);
                         await uow.CompleteAsync();
                     }
-                    //await AddUserAsync(newUser);
                     ConfirmRegistration(newUser.Username);
                     RedirectToLoginPage();
                     //When a user is added there is a trigger in SQL creating a garden for the user NOT ANYMORE
@@ -95,10 +94,6 @@ namespace GreenThumb
                 await uow.UserRepo.AddUserAsync(newUser);
                 await uow.CompleteAsync();
             }
-        }
-        async private Task AddGardenAsync(GardenModel newGarden)
-        {
-
         }
         private void ConfirmRegistration(string username)
         {

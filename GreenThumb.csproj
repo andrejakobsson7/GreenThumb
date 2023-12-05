@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="entityframeworkcore.encryptcolumn" Version="6.0.8" />
     <PackageReference Include="microsoft.entityframeworkcore" Version="6.0.25" />
     <PackageReference Include="microsoft.entityframeworkcore.design" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
