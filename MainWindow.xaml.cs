@@ -14,15 +14,10 @@ namespace GreenThumb
         public MainWindow()
         {
             InitializeComponent();
-            LoadLogo();
         }
 
-        private void LoadLogo()
-        {
-            imgLogo.Source = ImageManager.GetLogo(imgLogo.Source);
-        }
 
-        private async void btnSignIn_Click(object sender, RoutedEventArgs e)
+        async private void btnSignIn_Click(object sender, RoutedEventArgs e)
         {
             UserManager.SignedInUser = await SignIn(txtUsername.Text, pbPassword.Password);
             if (UserManager.SignedInUser != null)
@@ -61,8 +56,8 @@ namespace GreenThumb
 
         private void RedirectToRegisterWindow()
         {
-            RegisterWindow rW = new();
-            rW.Show();
+            RegisterWindow rw = new();
+            rw.Show();
 
             Close();
         }

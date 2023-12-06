@@ -14,16 +14,23 @@ namespace GreenThumb.Database.Repositories
 
         async public Task<UserModel?> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            return await _context.Users.
+                FirstOrDefaultAsync(u => u.Username == username);
         }
 
         async public Task AddUserAsync(UserModel newUser)
         {
-            await _context.Users.AddAsync(newUser);
+            await _context.Users.
+                AddAsync(newUser);
         }
+
+
         async public Task<UserModel?> SignInUser(string username, string password)
         {
-            return await _context.Users.Include(u => u.Garden).FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            //Include garden so we can add plants to the user's personal garden later on
+            return await _context.Users.
+                Include(u => u.Garden).
+                FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
         }
     }
 }

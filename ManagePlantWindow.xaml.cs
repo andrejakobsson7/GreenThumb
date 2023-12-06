@@ -14,13 +14,13 @@ namespace GreenThumb
     public partial class ManagePlantWindow : Window
     {
         public PlantModel? PlantToDisplay { get; set; }
+        private string? TemporaryFileNameHolder { get; set; }
 
 
         public ManagePlantWindow()
         {
             //Adding new plant
             InitializeComponent();
-            LoadLogo();
         }
 
         public ManagePlantWindow(PlantModel plantToDisplay)
@@ -28,15 +28,23 @@ namespace GreenThumb
             //See details/update existing plant
             InitializeComponent();
             PlantToDisplay = plantToDisplay;
-            LoadLogo();
             LoadAllPlantInformation();
             ActivateReadOnlyMode();
 
         }
-
-        private void LoadLogo()
+        private void LoadAllPlantInformation()
         {
-            imgLogo.Source = ImageManager.GetLogo(imgLogo.Source);
+            txtPlantName.Text = PlantToDisplay!.Name;
+            dpPlantDate.SelectedDate = PlantToDisplay.PlantDate;
+            imgPlantImage.Source = ImageManager.GetPlantImage(PlantToDisplay.ImageUrl);
+            foreach (var instruction in PlantToDisplay.Instructions)
+            {
+                ListBoxItem item = new();
+                item.Tag = instruction;
+                item.Content = instruction.ToString();
+                lstCareInstructions.Items.Add(item);
+            }
+
         }
 
         private void ActivateReadOnlyMode()
@@ -53,19 +61,7 @@ namespace GreenThumb
             btnAddToMyGarden.Visibility = Visibility.Visible;
             btnAddPlantImage.Visibility = Visibility.Collapsed;
         }
-        private void LoadAllPlantInformation()
-        {
-            txtPlantName.Text = PlantToDisplay!.Name;
-            dpPlantDate.SelectedDate = PlantToDisplay.PlantDate;
-            foreach (var instruction in PlantToDisplay.Instructions)
-            {
-                ListBoxItem item = new();
-                item.Tag = instruction;
-                item.Content = instruction.ToString();
-                lstCareInstructions.Items.Add(item);
-            }
 
-        }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
@@ -90,30 +86,11 @@ namespace GreenThumb
             }
 
         }
-
-        private void btnRemoveCareInstruction_Click(object sender, RoutedEventArgs e)
-        {
-            bool isValidInstruction = ValidateCareInstructionHasBeenSelected(lstCareInstructions.SelectedItem);
-            if (isValidInstruction)
-            {
-                lstCareInstructions.Items.Remove(lstCareInstructions.SelectedItem);
-            }
-        }
-
         private bool ValidateInstructionInput(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
             {
                 MessageBox.Show("No care instruction has been entered!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
-            return true;
-        }
-        private bool ValidateCareInstructionHasBeenSelected(object selectedItem)
-        {
-            if (selectedItem == null)
-            {
-                MessageBox.Show("No care instruction has been selected!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -124,6 +101,26 @@ namespace GreenThumb
             item.Tag = description;
             item.Content = description;
             lstCareInstructions.Items.Add(item);
+        }
+
+        private void btnRemoveCareInstruction_Click(object sender, RoutedEventArgs e)
+        {
+            bool isValidInstruction = ValidateCareInstructionHasBeenSelected(lstCareInstructions.SelectedItem);
+            if (isValidInstruction)
+            {
+                lstCareInstructions.Items.Remove(lstCareInstructions.SelectedItem);
+            }
+        }
+
+
+        private bool ValidateCareInstructionHasBeenSelected(object selectedItem)
+        {
+            if (selectedItem == null)
+            {
+                MessageBox.Show("No care instruction has been selected!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
         }
 
         private bool ValidatePlantName(string plantName)
@@ -139,7 +136,7 @@ namespace GreenThumb
         {
             if (listBoxToCheck.Items.Count <= 0)
             {
-                MessageBox.Show("No instructions has been entered!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No instructions have been entered!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
             return true;
@@ -179,18 +176,25 @@ namespace GreenThumb
                     {
                         //Add new
                         //Check if plant exists with that name. If not, add new.
-                        var plantExist = await uow.PlantRepo.GetPlantByName(newPlant.Name);
-                        if (plantExist == null)
+                        var foundPlant = await uow.PlantRepo.GetPlantByName(newPlant.Name);
+                        if (foundPlant == null)
                         {
                             await uow.PlantRepo.AddPlantAsync(newPlant);
                             await uow.CompleteAsync();
-                            foreach (var plant in lstCareInstructions.Items)
+                            foreach (var instruction in lstCareInstructions.Items)
                             {
-                                ListBoxItem item = (ListBoxItem)plant;
+                                ListBoxItem item = (ListBoxItem)instruction;
                                 InstructionModel newInstruction = new(item.Content.ToString()!, newPlant.PlantId);
                                 await uow.InstructionRepo.AddInstructionAsync(newInstruction);
                             }
                             await uow.CompleteAsync();
+                            //Here we should insert url for the plants' image and add it to the projects folder if the user has added an image
+                            if (TemporaryFileNameHolder != null)
+                            {
+                                newPlant.ImageUrl = ImageManager.GetImageUrl();
+                                await uow.CompleteAsync();
+                                ImageManager.AddImageToFolder(TemporaryFileNameHolder, newPlant.ImageUrl);
+                            }
                             MessageBox.Show("Plant was successfully registered!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
                             UpdateUi();
                         }
@@ -212,27 +216,47 @@ namespace GreenThumb
                             await uow.InstructionRepo.RemoveInstructionsByPlantId(PlantToDisplay.PlantId);
                             await uow.CompleteAsync();
                             //Add them again
-                            foreach (var plant in lstCareInstructions.Items)
+                            foreach (var instruction in lstCareInstructions.Items)
                             {
-                                ListBoxItem item = (ListBoxItem)plant;
+                                ListBoxItem item = (ListBoxItem)instruction;
                                 InstructionModel newInstruction = new(item.Content.ToString()!, plantToUpdate.PlantId);
                                 await uow.InstructionRepo.AddInstructionAsync(newInstruction);
                             }
                             await uow.CompleteAsync();
-                            MessageBox.Show("Plant was successfully updated!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
-                            UpdateUi();
+                            if (TemporaryFileNameHolder != null)
+                            {
+                                plantToUpdate.ImageUrl = ImageManager.GetImageUrl();
+                                await uow.CompleteAsync();
+                                ImageManager.AddImageToFolder(TemporaryFileNameHolder, plantToUpdate.ImageUrl);
+                            }
+                            MessageBox.Show("Plant was successfully updated. You will now be redirected to home page", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                            ResetPlantToDisplay();
+                            ResetTemporaryFileNameHolder();
+                            RedirectToPlantWindow();
                         }
                     }
                 }
             }
 
         }
+
         private void UpdateUi()
         {
             txtPlantName.Text = "";
             ClearInstructionTextField();
             lstCareInstructions.Items.Clear();
             dpPlantDate.SelectedDate = null;
+            imgPlantImage.Source = null;
+            ResetTemporaryFileNameHolder();
+        }
+
+        private void ResetPlantToDisplay()
+        {
+            PlantToDisplay = null;
+        }
+        private void ResetTemporaryFileNameHolder()
+        {
+            TemporaryFileNameHolder = null;
         }
 
         private void ClearInstructionTextField()
@@ -256,6 +280,7 @@ namespace GreenThumb
 
         async private void btnAddToMyGarden_Click(object sender, RoutedEventArgs e)
         {
+            //Since this option only is available when displaying an existing plant, no validation is required.
             GardenPlant newGardenPlant = new(UserManager.SignedInUser!.Garden!.GardenId, PlantToDisplay!.PlantId);
             using (AppDbContext context = new())
             {
@@ -284,8 +309,10 @@ namespace GreenThumb
             bool? userOption = ofd.ShowDialog();
             if (userOption == true)
             {
-                //Save file
+                //Save file as image source so it can be viewed in the UI directly
                 imgPlantImage.Source = ImageManager.GetPlantImage(ofd.FileName);
+                //Save it temporarily in the field variable so it can be accessed later on when saving
+                TemporaryFileNameHolder = ofd.FileName;
             }
         }
     }

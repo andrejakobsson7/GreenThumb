@@ -29,6 +29,7 @@
         <!--Images-->
         <Image
             Name="imgLogo"
+            Source = "/Images/green-thumb-logo.png"
             Grid.Column="1"
             Grid.Row="1"
             />
@@ -55,7 +56,7 @@
             VerticalContentAlignment="Bottom"
             />
         <Label
-            Content="Plants"
+            Content="All plants"
             Grid.Column="1"
             Grid.Row="2"
             FontSize="20"

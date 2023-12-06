@@ -15,7 +15,6 @@ namespace GreenThumb
         public MyGardenWindow()
         {
             InitializeComponent();
-            LoadLogo();
             DisplayGardenName();
             GetPersonalGardenPlantsByIdAsync();
         }
@@ -25,10 +24,6 @@ namespace GreenThumb
             RedirectToPlantWindow();
         }
 
-        private void LoadLogo()
-        {
-            imgLogo.Source = ImageManager.GetLogo(imgLogo.Source);
-        }
         private void RedirectToPlantWindow()
         {
             PlantWindow pw = new();
@@ -41,12 +36,12 @@ namespace GreenThumb
             txtGardenName.Text = UserManager.SignedInUser!.Garden!.GardenName;
         }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        private void btnEditGardenName_Click(object sender, RoutedEventArgs e)
         {
             ActivateEditMode();
         }
 
-        async private void btnSave_Click(object sender, RoutedEventArgs e)
+        async private void btnSaveGardenName_Click(object sender, RoutedEventArgs e)
         {
             bool isValidGardenName = ValidateGardenName(txtGardenName.Text);
             if (isValidGardenName)
@@ -66,14 +61,14 @@ namespace GreenThumb
         private void ActivateReadOnlyMode()
         {
             txtGardenName.IsReadOnly = true;
-            btnEdit.Visibility = Visibility.Visible;
-            btnSave.Visibility = Visibility.Collapsed;
+            btnEditGardenName.Visibility = Visibility.Visible;
+            btnSaveGardenName.Visibility = Visibility.Collapsed;
         }
         private void ActivateEditMode()
         {
             txtGardenName.IsReadOnly = false;
-            btnEdit.Visibility = Visibility.Collapsed;
-            btnSave.Visibility = Visibility.Visible;
+            btnEditGardenName.Visibility = Visibility.Collapsed;
+            btnSaveGardenName.Visibility = Visibility.Visible;
         }
 
         private void btnDetails_Click(object sender, RoutedEventArgs e)
@@ -111,7 +106,6 @@ namespace GreenThumb
 
         async private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
-            //Remove from personal garden, not the entire database
             bool isValidGardenPlant = ValidateItemHasBeenSelected(lstPlants.SelectedItem);
             if (isValidGardenPlant)
             {
@@ -124,6 +118,7 @@ namespace GreenThumb
                     await uow.CompleteAsync();
                 }
                 lstPlants.Items.Remove(selectedItem);
+                imgPlant.Source = null;
             }
 
         }
@@ -151,6 +146,16 @@ namespace GreenThumb
                 return false;
             }
             return true;
+        }
+
+        private void lstPlants_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstPlants.SelectedItem != null)
+            {
+                ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
+                GardenPlant selectedGardenPlant = (GardenPlant)selectedItem.Tag;
+                imgPlant.Source = ImageManager.GetPlantImage($"{selectedGardenPlant.Plant.ImageUrl}");
+            }
         }
     }
 }

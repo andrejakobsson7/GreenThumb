@@ -27,6 +27,7 @@
         <!--Images-->
         <Image
             Name="imgLogo"
+            Source = "/Images/green-thumb-logo.png"
             Grid.Column="1"
             Grid.Row="1"
             />
@@ -53,7 +54,7 @@
             HorizontalAlignment="Center"
             />
         <Label
-            Content="Not a customer yet?"
+            Content="Not a member yet?"
             Grid.Column="2"
             Grid.ColumnSpan="2"
             Grid.Row="5"

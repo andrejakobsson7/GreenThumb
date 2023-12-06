@@ -13,6 +13,8 @@ namespace GreenThumb.Database.Repositories
             _context = context;
         }
 
+        //Query to retrieve all the user's personal plants.
+        //Include plant and it's instructions to be able to properly navigate to PlantWindow from here and see all necessary info.
         public async Task<List<GardenPlant>> GetAllGardensByGardenIdWithRelatedDataAsync(int gardenId)
         {
             return await _context.GardenPlants

@@ -29,6 +29,7 @@
         <!--Images-->
         <Image
             Name="imgLogo"
+            Source = "/Images/green-thumb-logo.png"
             Grid.Column="1"
             Grid.Row="1"
             />

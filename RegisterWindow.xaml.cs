@@ -1,6 +1,5 @@
 ﻿using GreenThumb.Database;
 using GreenThumb.Database.Repositories;
-using GreenThumb.Managers;
 using GreenThumb.Models;
 using System.Windows;
 
@@ -14,7 +13,6 @@ namespace GreenThumb
         public RegisterWindow()
         {
             InitializeComponent();
-            LoadLogo();
         }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
@@ -24,57 +22,40 @@ namespace GreenThumb
 
         async private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            bool isValidUsername = await ValidateUsername(txtUsername.Text);
-            if (isValidUsername)
+            bool isValidUserInfo = ValidateUsernameAndPassword(txtUsername.Text, pbPassword.Password);
+            if (isValidUserInfo)
             {
-                bool isValidPassword = ValidatePassword(pbPassword.Password);
-                if (isValidPassword)
+                using (AppDbContext context = new())
                 {
-                    UserModel newUser = new(txtUsername.Text, pbPassword.Password);
-                    using (AppDbContext context = new())
+                    GreenThumbUow uow = new(context);
+                    var foundUser = await uow.UserRepo.GetUserByUsernameAsync(txtUsername.Text);
+                    if (foundUser == null)
                     {
-                        GreenThumbUow uow = new(context);
+                        UserModel newUser = new(txtUsername.Text, pbPassword.Password);
                         await uow.UserRepo.AddUserAsync(newUser);
                         await uow.CompleteAsync();
                         GardenModel newGarden = new($"{newUser.Username}'s garden", newUser.UserId);
                         await uow.GardenRepo.AddGardenAsync(newGarden);
                         await uow.CompleteAsync();
+                        ConfirmRegistration(newUser.Username);
+                        RedirectToLoginPage();
                     }
-                    ConfirmRegistration(newUser.Username);
-                    RedirectToLoginPage();
-                    //When a user is added there is a trigger in SQL creating a garden for the user NOT ANYMORE
+                    else
+                    {
+                        MessageBox.Show("Username is already in use, try another!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
+
             }
-
         }
-
-        private void LoadLogo()
-        {
-            imgLogo.Source = ImageManager.GetLogo(imgLogo.Source);
-        }
-
-        async private Task<bool> ValidateUsername(string username)
+        private bool ValidateUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
-                MessageBox.Show("Invalid username!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("No username has been entered!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
             }
-            return await CheckIfUsernameIsTaken(username);
-        }
-        async private Task<bool> CheckIfUsernameIsTaken(string username)
-        {
-            using (AppDbContext context = new())
-            {
-                GreenThumbUow uow = new(context);
-                var user = await uow.UserRepo.GetUserByUsernameAsync(username);
-                if (user == null)
-                {
-                    return true;
-                }
-                MessageBox.Show("Username is already in use, try another!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return false;
-            }
+            return true;
         }
         private bool ValidatePassword(string password)
         {
@@ -85,19 +66,17 @@ namespace GreenThumb
             }
             return true;
         }
-
-        async private Task AddUserAsync(UserModel newUser)
+        bool ValidateUsernameAndPassword(string username, string password)
         {
-            using (AppDbContext context = new())
+            if (ValidateUsername(username) && ValidatePassword(password))
             {
-                GreenThumbUow uow = new(context);
-                await uow.UserRepo.AddUserAsync(newUser);
-                await uow.CompleteAsync();
+                return true;
             }
+            return false;
         }
         private void ConfirmRegistration(string username)
         {
-            MessageBox.Show($"{username} was successfully registered as a new customer! You will now be redirected to login page", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{username} was successfully registered as a new member! You will now be redirected to login page", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void RedirectToLoginPage()
         {

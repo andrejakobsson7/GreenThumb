@@ -17,7 +17,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
@@ -29,49 +28,22 @@
         <!--Images-->
         <Image
             Name="imgLogo"
+            Source = "/Images/green-thumb-logo.png"
             Grid.Column="1"
             Grid.Row="1"
             />
 
         <Border
             BorderThickness="1"
-            BorderBrush="#FF023733"
-            Grid.Column="1"
-            Grid.Row="2"
-            Margin="10"
-            >
-            <Image
-                Name="imgPlant1"
-                Grid.Column="1"
-                Grid.Row="2"
-                Grid.RowSpan="2"
-            />
-        </Border>
-        <Border
-            BorderThickness="1"
-            BorderBrush="#FF023733"
-            Grid.Column="2"
-            Grid.Row="2"
-            Margin="10"
-            >
-            <Image
-                Name="imgPlant2"
-                Grid.Column="2"
-                Grid.Row="2"
-                Grid.RowSpan="2"
-            />
-        </Border>
-        <Border
-            BorderThickness="1"
-            BorderBrush="#FF023733"
             Grid.Column="3"
-            Grid.Row="2"
-            Margin="10"
+            Grid.Row="4"
+            Grid.RowSpan="2"
+            BorderBrush="#FFABADB3"
             >
             <Image
-                Name="imgPlant3"
+                Name="imgPlant"
                 Grid.Column="3"
-                Grid.Row="2"
+                Grid.Row="4"
                 Grid.RowSpan="2"
             />
         </Border>
@@ -102,7 +74,7 @@
         <Label
             Content="Garden name"
             Grid.Column="1"
-            Grid.Row="3"
+            Grid.Row="2"
             FontSize="20"
             FontFamily="Arial"
             FontWeight="bold"
@@ -110,13 +82,35 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             />
+        <!--<Label
+            Content="Click on a plant to see it's image"
+            Grid.Column="3"
+            Grid.Row="3"
+            FontSize="10"
+            FontFamily="Arial"
+            VerticalAlignment="Center"
+            Margin="0 0 0 20"
+            HorizontalAlignment="Left"
+            />-->
+
+        <TextBlock
+            Text="Click on a plant to see it's image here!"
+            Grid.Column="3"
+            Grid.Row="3"
+            FontSize="15"
+            FontFamily="Arial"
+            FontStyle="Italic"
+            VerticalAlignment="Center"
+            Margin="0 10 0 0"
+            TextWrapping="Wrap"
+            />
 
         <!--Textboxes-->
         <TextBox
             Name="txtGardenName"
             Grid.Column="2"
             Grid.ColumnSpan="2"
-            Grid.Row="3"
+            Grid.Row="2"
             Height="30"
             Width="250"
             HorizontalAlignment="Left"
@@ -129,16 +123,16 @@
         <ListBox
             Name="lstPlants"
             Grid.Column="1"
-            Grid.ColumnSpan="3"
-            Grid.Row="4"
+            Grid.ColumnSpan="2"
+            Grid.Row="3"
             Grid.RowSpan="3"
             FontFamily="Arial"
-            Margin="10 0 10 0"
+            Margin="10 0 10 0" SelectionChanged="lstPlants_SelectionChanged"
             />
 
         <!--Buttons-->
         <Button
-            Name="btnSave"
+            Name="btnSaveGardenName"
             Content="Save"
             Grid.Column="3"
             Grid.Row="3"
@@ -150,13 +144,13 @@
             BorderBrush="black"
             Background="#FF023733"
             Foreground="white"
-            Visibility="Collapsed" Click="btnSave_Click"
+            Visibility="Collapsed" Click="btnSaveGardenName_Click"
             />
         <Button
-            Name="btnEdit"
+            Name="btnEditGardenName"
             Content="Edit"
             Grid.Column="3"
-            Grid.Row="3"
+            Grid.Row="2"
             Height="30"
             Width="75"
             FontFamily="Arial"
@@ -165,8 +159,7 @@
             BorderBrush="black" 
             Background="orange"
             Foreground="GhostWhite"
-            Margin="0 0 10 0"
-            Visibility="Visible" Click="btnEdit_Click"
+            Visibility="Visible" Click="btnEditGardenName_Click"
             />
         <Button
             Name="btnReturn"
@@ -179,7 +172,6 @@
             VerticalAlignment="Top"
             HorizontalContentAlignment="Right"
             FontSize="15"
-            Margin="0 0 10 0"
             Background="transparent"
             BorderBrush="transparent"
             Foreground="orange" Click="btnReturn_Click"
@@ -188,8 +180,7 @@
             Name="btnDetails"
             Content="See details"
             Grid.Column="1"
-            Grid.ColumnSpan="2"
-            Grid.Row="7"
+            Grid.Row="6"
             Height="45"
             Width="120"
             FontFamily="Arial"
@@ -202,8 +193,7 @@
             Name="btnRemove"
             Content="Remove"
             Grid.Column="2"
-            Grid.ColumnSpan="2"
-            Grid.Row="7"
+            Grid.Row="6"
             Height="45"
             Width="120"
             FontFamily="Arial"

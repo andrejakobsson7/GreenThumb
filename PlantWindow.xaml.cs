@@ -17,27 +17,18 @@ namespace GreenThumb
         {
             InitializeComponent();
             WelcomeUser(UserManager.SignedInUser!);
-            LoadLogo();
             GetAllPlantsAsync();
         }
 
-        public void LoadLogo()
+        private void WelcomeUser(UserModel signedInUser)
         {
-            imgLogo.Source = ImageManager.GetLogo(imgLogo.Source);
+            lblWelcomeUser.Content = $"Welcome {signedInUser.Username}";
         }
 
         private void btnSignOut_Click(object sender, RoutedEventArgs e)
         {
             SignOutAndRedirectToLoginPage();
         }
-
-        async private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            string searchWord = txtSearch.Text;
-            var filteredList = await GetPlantsByName(searchWord);
-            DisplayAllPlants(filteredList);
-        }
-
         private void SignOutAndRedirectToLoginPage()
         {
             UserManager.SignedInUser = null;
@@ -47,12 +38,19 @@ namespace GreenThumb
             Close();
         }
 
+        async private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            string searchWord = txtSearch.Text;
+            var filteredList = await SearchPlantsByNameAsync(searchWord);
+            DisplayAllPlants(filteredList);
+        }
+
         async private void GetAllPlantsAsync()
         {
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);
-                var plantList = await uow.PlantRepo.GetPlantsWithIncludedDataAsync();
+                var plantList = await uow.PlantRepo.GetAllPlantsWithIncludedDataAsync();
                 DisplayAllPlants(plantList);
             }
         }
@@ -68,18 +66,15 @@ namespace GreenThumb
                 lstPlants.Items.Add(item);
             }
         }
-        async private Task<List<PlantModel>> GetPlantsByName(string plantName)
+        async private Task<List<PlantModel>> SearchPlantsByNameAsync(string searchWord)
         {
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);
-                return await uow.PlantRepo.GetPlantsByNameAsync(plantName);
+                return await uow.PlantRepo.GetPlantsByNameAsync(searchWord);
             }
         }
-        private void WelcomeUser(UserModel signedInUser)
-        {
-            lblWelcomeUser.Content = $"Welcome {signedInUser.Username}";
-        }
+
 
         async private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
@@ -88,7 +83,7 @@ namespace GreenThumb
             {
                 ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
                 PlantModel selectedPlant = (PlantModel)selectedItem.Tag;
-                MessageBoxResult answer = MessageBox.Show($"Please confirm that you want to remove {selectedPlant.Name}.", "Confirm removal", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                MessageBoxResult answer = MessageBox.Show($"Please confirm that you want to remove {selectedPlant.Name}. It will be removed from every members' garden!", "Confirm removal", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (answer == MessageBoxResult.OK)
                 {
                     await RemovePlantAsync(selectedPlant.PlantId);
@@ -111,8 +106,12 @@ namespace GreenThumb
             using (AppDbContext context = new())
             {
                 GreenThumbUow uow = new(context);
-                await uow.PlantRepo.RemovePlant(plantId);
-                await uow.CompleteAsync();
+                bool isRemoved = await uow.PlantRepo.RemovePlantAsync(plantId);
+                if (isRemoved)
+                {
+                    await uow.CompleteAsync();
+                    MessageBox.Show("Plant was succesfully removed!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 

@@ -15,6 +15,8 @@ namespace GreenThumb.Models
         [Column("plant_date")]
         public DateTime PlantDate { get; set; }
 
+        [Column("image_url")]
+        public string? ImageUrl { get; set; }
 
         public List<InstructionModel> Instructions { get; set; } = new();
         public List<GardenPlant> GardenPlants { get; set; } = new();
@@ -28,6 +30,13 @@ namespace GreenThumb.Models
         {
             Name = plantName;
             PlantDate = plantDate;
+        }
+
+        public PlantModel(string plantName, DateTime plantDate, string imageUrl)
+        {
+            Name = plantName;
+            PlantDate = plantDate;
+            ImageUrl = imageUrl;
         }
 
         public override string ToString()
