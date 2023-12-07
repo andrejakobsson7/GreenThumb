@@ -1,9 +1,8 @@
 # GreenThumb
  App for managing gardens with GreenThumb
  
- Slutprojekt i kursen "Databasutveckling" vid Newton Yrkeshögskola, HT-23
- 
- Reflektion
+ Reflektion kring slutprojekt i kursen "Databasutveckling" vid Newton Yrkeshögskola, HT-23
+
 I one-to-one relationen mellan "User" och "Garden", tolkade jag "Garden" som den svagare entiteten som inte kan existera utan den andra.
 Det kändes mest logiskt att göra så utifrån hur flödet ser ut - det är en User som registrerar sig först och sen blir tilldelad en Garden, som då kopplas till Userns ID.
 Där finns inga gardens tillgängliga utan att det finns någon User som tar hand om dem.
