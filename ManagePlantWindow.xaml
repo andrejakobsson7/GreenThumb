@@ -9,7 +9,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="1.6*"/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition Width="1.6*"/>
@@ -95,16 +95,6 @@
             HorizontalAlignment="left"
             />
         <Label
-            Content="All care instructions"
-            Grid.Column="1"
-            Grid.Row="4"
-            FontSize="20"
-            FontFamily="Arial"
-            FontWeight="Bold"
-            VerticalAlignment="Center"
-            HorizontalAlignment="left"
-            />
-        <Label
             Content="Planted date"
             Grid.Column="1"
             Grid.Row="6"
@@ -113,6 +103,19 @@
             FontWeight="Bold"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
+            />
+        
+        <!--Textblocks-->
+        <TextBlock
+            Text="All care instructions"
+            Grid.Column="1"
+            Grid.Row="4"
+            FontSize="20"
+            FontFamily="Arial"
+            FontWeight="Bold"
+            VerticalAlignment="Center"
+            HorizontalAlignment="left"
+            TextWrapping="Wrap"
             />
 
         <!--Textboxes-->

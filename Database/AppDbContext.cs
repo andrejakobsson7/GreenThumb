@@ -49,30 +49,35 @@ namespace GreenThumb.Database
                     PlantId = 1,
                     Name = "Rhododendron",
                     PlantDate = new DateTime(2023, 06, 30),
+                    ImageUrl = "C:\\Users\\andre\\OneDrive\\Dokument\\Databas\\Övningar\\GreenThumb\\GreenThumb\\bin\\Debug\\net8.0-windows\\01c17930-01db-43b9-8228-eeb5e8a67151.jpg"
                 },
                 new PlantModel()
                 {
                     PlantId = 2,
                     Name = "Autumn raspberries",
                     PlantDate = new DateTime(2023, 04, 01),
+                    ImageUrl = "C:\\Users\\andre\\OneDrive\\Dokument\\Databas\\Övningar\\GreenThumb\\GreenThumb\\bin\\Debug\\net8.0-windows\\67b6728d-1887-4782-8fe3-34ed82f89ad3.jpg"
                 },
                 new PlantModel()
                 {
                     PlantId = 3,
                     Name = "Summer raspberries",
                     PlantDate = new DateTime(2022, 05, 05),
+                    ImageUrl = "C:\\Users\\andre\\OneDrive\\Dokument\\Databas\\Övningar\\GreenThumb\\GreenThumb\\bin\\Debug\\net8.0-windows\\8c02969f-a649-4f4e-9fad-3e4e111bf00a.jpg"
                 },
                 new PlantModel()
                 {
                     PlantId = 4,
                     Name = "Strawberries",
                     PlantDate = new DateTime(2022, 05, 06),
+                    ImageUrl = "C:\\Users\\andre\\OneDrive\\Dokument\\Databas\\Övningar\\GreenThumb\\GreenThumb\\bin\\Debug\\net8.0-windows\\acac1f86-b7f6-4690-9563-82072c15118e.jpg"
                 },
                 new PlantModel()
                 {
                     PlantId = 5,
                     Name = "Elderflower",
-                    PlantDate = new DateTime(2010, 10, 10)
+                    PlantDate = new DateTime(2010, 10, 10),
+                    ImageUrl = "C:\\Users\\andre\\OneDrive\\Dokument\\Databas\\Övningar\\GreenThumb\\GreenThumb\\bin\\Debug\\net8.0-windows\\0c87edda-ddd0-4d84-abfe-e322549c8d91.jpg"
                 }
                 );
 

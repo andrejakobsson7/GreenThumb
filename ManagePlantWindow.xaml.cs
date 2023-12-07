@@ -175,7 +175,7 @@ namespace GreenThumb
                     if (PlantToDisplay == null)
                     {
                         //Add new
-                        //Check if plant exists with that name. If not, add new.
+                        //Check if plant exists with that name.
                         var foundPlant = await uow.PlantRepo.GetPlantByName(newPlant.Name);
                         if (foundPlant == null)
                         {
@@ -188,7 +188,7 @@ namespace GreenThumb
                                 await uow.InstructionRepo.AddInstructionAsync(newInstruction);
                             }
                             await uow.CompleteAsync();
-                            //Here we should insert url for the plants' image and add it to the projects folder if the user has added an image
+                            //Here we insert url for the plants' image and add it to the projects folder if the user has added an image
                             if (TemporaryFileNameHolder != null)
                             {
                                 newPlant.ImageUrl = ImageManager.GetImageUrl();
@@ -223,6 +223,8 @@ namespace GreenThumb
                                 await uow.InstructionRepo.AddInstructionAsync(newInstruction);
                             }
                             await uow.CompleteAsync();
+                            //If the user has added a new image, we update the plant's image url to the new information.
+                            //Haven't found a 100% way to remove the previous image from the project folder.
                             if (TemporaryFileNameHolder != null)
                             {
                                 plantToUpdate.ImageUrl = ImageManager.GetImageUrl();

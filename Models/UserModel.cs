@@ -17,7 +17,7 @@ namespace GreenThumb.Models
         [EncryptColumn]
         public string Password { get; set; } = null!;
 
-        //Navigation property. WIll this work?
+        //Navigation property
         public GardenModel? Garden { get; set; }
 
         public UserModel(string username, string password)

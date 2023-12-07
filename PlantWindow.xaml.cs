@@ -12,7 +12,6 @@ namespace GreenThumb
     /// </summary>
     public partial class PlantWindow : Window
     {
-
         public PlantWindow()
         {
             InitializeComponent();
@@ -83,11 +82,10 @@ namespace GreenThumb
             {
                 ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
                 PlantModel selectedPlant = (PlantModel)selectedItem.Tag;
-                MessageBoxResult answer = MessageBox.Show($"Please confirm that you want to remove {selectedPlant.Name}. It will be removed from every members' garden!", "Confirm removal", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+                MessageBoxResult answer = MessageBox.Show($"Please confirm that you want to remove {selectedPlant.Name}. It will be removed from every member's garden!", "Confirm removal", MessageBoxButton.OKCancel, MessageBoxImage.Question);
                 if (answer == MessageBoxResult.OK)
                 {
-                    await RemovePlantAsync(selectedPlant.PlantId);
-                    lstPlants.Items.Remove(selectedItem);
+                    await RemovePlantAsync(selectedPlant.PlantId, selectedItem);
                 }
             }
         }
@@ -101,7 +99,7 @@ namespace GreenThumb
             }
             return true;
         }
-        async private Task RemovePlantAsync(int plantId)
+        async private Task RemovePlantAsync(int plantId, ListBoxItem selectedItem)
         {
             using (AppDbContext context = new())
             {
@@ -111,6 +109,7 @@ namespace GreenThumb
                 {
                     await uow.CompleteAsync();
                     MessageBox.Show("Plant was succesfully removed!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                    lstPlants.Items.Remove(selectedItem);
                 }
             }
         }

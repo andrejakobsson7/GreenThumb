@@ -5,6 +5,7 @@ namespace GreenThumb.Managers
 {
     public static class ImageManager
     {
+        //Method used to be able to display plants images in the UI.
         public static BitmapImage? GetPlantImage(string filePath)
         {
             if (filePath != "" && filePath != null)
@@ -18,6 +19,8 @@ namespace GreenThumb.Managers
             }
             return null;
         }
+
+        //Create an empty file with a randomized name in the project folder.
         public static string GetImageUrl()
         {
             var currentDirectory = Directory.GetCurrentDirectory();
@@ -26,12 +29,13 @@ namespace GreenThumb.Managers
             fs.Dispose();
             return fs.Name;
         }
-
+        //Copy file from user to project folder
         public static void AddImageToFolder(string fileToCopy, string fileDestination)
         {
             File.Copy(fileToCopy, fileDestination, true);
         }
 
+        //Create a new unique name for the file.
         public static Guid CreateGuid()
         {
             return Guid.NewGuid();

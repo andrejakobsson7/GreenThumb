@@ -111,14 +111,8 @@ namespace GreenThumb
             {
                 ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
                 GardenPlant selectedGardenPlant = (GardenPlant)selectedItem.Tag;
-                using (AppDbContext context = new())
-                {
-                    GreenThumbUow uow = new(context);
-                    await uow.GardenPlantRepo.RemoveGardenPlant(selectedGardenPlant.GardenId, selectedGardenPlant.PlantId);
-                    await uow.CompleteAsync();
-                }
-                lstPlants.Items.Remove(selectedItem);
-                imgPlant.Source = null;
+                await RemoveGardenPlantAsync(selectedGardenPlant.GardenId, selectedGardenPlant.PlantId, selectedItem);
+                ResetImage();
             }
 
         }
@@ -138,6 +132,10 @@ namespace GreenThumb
             Close();
 
         }
+        private void ResetImage()
+        {
+            imgPlant.Source = null;
+        }
         private bool ValidateItemHasBeenSelected(object item)
         {
             if (item == null)
@@ -155,6 +153,20 @@ namespace GreenThumb
                 ListBoxItem selectedItem = (ListBoxItem)lstPlants.SelectedItem;
                 GardenPlant selectedGardenPlant = (GardenPlant)selectedItem.Tag;
                 imgPlant.Source = ImageManager.GetPlantImage($"{selectedGardenPlant.Plant.ImageUrl}");
+            }
+        }
+        async private Task RemoveGardenPlantAsync(int gardenId, int plantId, ListBoxItem selectedItem)
+        {
+            using (AppDbContext context = new())
+            {
+                GreenThumbUow uow = new(context);
+                bool isRemoved = await uow.GardenPlantRepo.RemoveGardenPlantAsync(gardenId, plantId);
+                if (isRemoved)
+                {
+                    await uow.CompleteAsync();
+                    MessageBox.Show("Plant was succesfully removed!", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
+                    lstPlants.Items.Remove(selectedItem);
+                }
             }
         }
     }

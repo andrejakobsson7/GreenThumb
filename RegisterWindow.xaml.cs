@@ -66,7 +66,7 @@ namespace GreenThumb
             }
             return true;
         }
-        bool ValidateUsernameAndPassword(string username, string password)
+        private bool ValidateUsernameAndPassword(string username, string password)
         {
             if (ValidateUsername(username) && ValidatePassword(password))
             {

@@ -31,16 +31,18 @@ namespace GreenThumb.Database.Repositories
         {
             return await _context.GardenPlants.FirstOrDefaultAsync(gp => gp.GardenId == gardenId && gp.PlantId == plantId);
         }
-        async public Task RemoveGardenPlant(int gardenId, int plantId)
+        async public Task<bool> RemoveGardenPlantAsync(int gardenId, int plantId)
         {
             var gardenPlantToRemove = await GetGardenPlantById(gardenId, plantId);
             if (gardenPlantToRemove != null)
             {
                 _context.GardenPlants.Remove(gardenPlantToRemove);
+                return true;
             }
             else
             {
                 MessageBox.Show("Plant could not be located in garden!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
         }
     }

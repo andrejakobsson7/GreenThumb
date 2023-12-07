@@ -79,6 +79,7 @@
             FontFamily="Arial"
             FontStyle="Italic"
             Foreground="gray"
+            BorderBrush="#FF023733"
             />
 
         <!--Listboxes-->
@@ -89,6 +90,7 @@
             Grid.Row="4"
             Grid.RowSpan="3"
             FontFamily="Arial"
+            BorderBrush="#FF023733"
             />
 
 

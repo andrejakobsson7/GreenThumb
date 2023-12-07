@@ -38,7 +38,7 @@
             Grid.Column="3"
             Grid.Row="4"
             Grid.RowSpan="2"
-            BorderBrush="#FFABADB3"
+            BorderBrush="#FF023733"
             >
             <Image
                 Name="imgPlant"
@@ -117,6 +117,7 @@
             VerticalContentAlignment="Center"
             FontFamily="Arial"
             IsReadOnly="True"
+            BorderBrush="#FF023733"
             />
 
         <!--Listboxes-->
@@ -127,6 +128,7 @@
             Grid.Row="3"
             Grid.RowSpan="3"
             FontFamily="Arial"
+            BorderBrush="#FF023733"
             Margin="10 0 10 0" SelectionChanged="lstPlants_SelectionChanged"
             />
 
@@ -135,7 +137,7 @@
             Name="btnSaveGardenName"
             Content="Save"
             Grid.Column="3"
-            Grid.Row="3"
+            Grid.Row="2"
             Height="30"
             Width="75"
             FontFamily="Arial"
