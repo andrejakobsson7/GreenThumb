@@ -32,13 +32,6 @@ namespace GreenThumb.Models
             PlantDate = plantDate;
         }
 
-        public PlantModel(string plantName, DateTime plantDate, string imageUrl)
-        {
-            Name = plantName;
-            PlantDate = plantDate;
-            ImageUrl = imageUrl;
-        }
-
         public override string ToString()
         {
             return $"{Name}";

@@ -7,14 +7,15 @@ namespace GreenThumb.Managers
     {
         public static string GetEncryptionKey()
         {
-            if (File.Exists("C:\\Users\\andre\\OneDrive\\Dokument\\RestrictedSection.txt"))
+            string keyLocation = Path.Combine(Directory.GetCurrentDirectory(), "RestrictedSection.txt");
+            if (File.Exists(keyLocation))
             {
-                return File.ReadAllText("C:\\Users\\andre\\OneDrive\\Dokument\\RestrictedSection.txt");
+                return File.ReadAllText(keyLocation);
             }
             else
             {
                 string key = GenerateEncryptionKey();
-                File.WriteAllText("C:\\Users\\andre\\OneDrive\\Dokument\\RestrictedSection.txt", key);
+                File.WriteAllText(keyLocation, key);
                 return key;
             }
         }
@@ -27,6 +28,5 @@ namespace GreenThumb.Managers
             rng.GetBytes(filledArray);
             return Convert.ToBase64String(filledArray);
         }
-
     }
 }

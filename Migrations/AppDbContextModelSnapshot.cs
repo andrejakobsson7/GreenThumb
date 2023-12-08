@@ -45,7 +45,7 @@ namespace GreenThumb.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Gardens");
+                    b.ToTable("Gardens", (string)null);
                 });
 
             modelBuilder.Entity("GreenThumb.Models.GardenPlant", b =>
@@ -62,7 +62,7 @@ namespace GreenThumb.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("GardenPlants");
+                    b.ToTable("GardenPlants", (string)null);
                 });
 
             modelBuilder.Entity("GreenThumb.Models.InstructionModel", b =>
@@ -87,7 +87,7 @@ namespace GreenThumb.Migrations
 
                     b.HasIndex("PlantId");
 
-                    b.ToTable("Instructions");
+                    b.ToTable("Instructions", (string)null);
 
                     b.HasData(
                         new
@@ -176,7 +176,7 @@ namespace GreenThumb.Migrations
 
                     b.HasKey("PlantId");
 
-                    b.ToTable("Plants");
+                    b.ToTable("Plants", (string)null);
 
                     b.HasData(
                         new
@@ -232,7 +232,7 @@ namespace GreenThumb.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("GreenThumb.Models.GardenModel", b =>

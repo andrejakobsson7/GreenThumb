@@ -13,7 +13,7 @@ namespace GreenThumb.Database.Repositories
             _context = context;
         }
 
-        //Method used for getting all plants in the database. Include instructions so they can be displayed in 'PlantWindow'.
+        //Method used for getting all plants in the database. Include instructions so they can be displayed in 'ManagePlantWindow'.
         async public Task<List<PlantModel>> GetAllPlantsWithIncludedDataAsync()
         {
             return await _context.Plants.
@@ -21,7 +21,7 @@ namespace GreenThumb.Database.Repositories
                 ToListAsync();
         }
 
-        //Method used for searching on plant name. Include instructions so they can be displayed in 'PlantWindow'.
+        //Method used for searching on plant name. Include instructions so they can be displayed in 'ManagePlantWindow'.
         async public Task<List<PlantModel>> GetPlantsByNameAsync(string plantName)
         {
             return await _context.Plants.

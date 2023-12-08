@@ -64,6 +64,7 @@
             FontWeight="Bold"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
+            Padding="0"
             />
         
         <!--Textboxes-->

@@ -42,6 +42,7 @@ namespace GreenThumb
             string searchWord = txtSearch.Text;
             var filteredList = await SearchPlantsByNameAsync(searchWord);
             DisplayAllPlants(filteredList);
+
         }
 
         async private void GetAllPlantsAsync()
@@ -73,8 +74,6 @@ namespace GreenThumb
                 return await uow.PlantRepo.GetPlantsByNameAsync(searchWord);
             }
         }
-
-
         async private void btnRemove_Click(object sender, RoutedEventArgs e)
         {
             bool isValidItem = ValidateItemHasBeenSelected(lstPlants.SelectedItem);

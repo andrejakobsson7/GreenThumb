@@ -82,17 +82,8 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
             />
-        <!--<Label
-            Content="Click on a plant to see it's image"
-            Grid.Column="3"
-            Grid.Row="3"
-            FontSize="10"
-            FontFamily="Arial"
-            VerticalAlignment="Center"
-            Margin="0 0 0 20"
-            HorizontalAlignment="Left"
-            />-->
-
+        
+        <!--Textblocks-->
         <TextBlock
             Text="Click on a plant to see it's image here!"
             Grid.Column="3"

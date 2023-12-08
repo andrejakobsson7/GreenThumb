@@ -80,6 +80,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="Bold"
+            Padding="0"
             VerticalAlignment="Center"
             HorizontalAlignment="left"
             />
@@ -91,6 +92,7 @@
             FontSize="20"
             FontFamily="Arial"
             FontWeight="Bold"
+            Padding="0"
             VerticalAlignment="Center"
             HorizontalAlignment="left"
             />
@@ -103,6 +105,7 @@
             FontWeight="Bold"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
+            Padding="0"
             />
         
         <!--Textblocks-->
