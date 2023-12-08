@@ -13,6 +13,8 @@ Appen är väldigt öppen, så alla användare kan redigera växter och ta bort 
 
 
 I "Huvudträdgården" (PlantWindow) hämtas alla plantor inklusive deras instruktioner från databasen när sidan laddas in. I sökfunktionen som implementerats på denna sida görs därför en motsvarande sökning mot databasen varje gång användaren söker. Det känns som att det borde vara en ganska kostsam operation att göra denna sökning mot databasen varje gång man söker. För att spara på antalet frågor mot databasen borde man kanske istället implementera en fältvariabel som sparar undan alla plantor inklusive instruktioner i en lokal lista på sidan, och sedan görs sökning mot den istället. Nackdelen med det blir då att man får ytterligare en lista att administrera, men i en app med större dataset vore det kanske värt att göra så.
+
+
 Min största utmaning med uppgiften har varit att få till en bra hantering gällande bilder för växter. Lösningen som nu är implementerad sparar bilder i projektets bin-mapp och ska fungera för andra att öppna (hoppas jag). Men den lösning som nu ligger innebär också att inga bilder rensas även om man byter bild på en existerande växt, så det riskerar att fylla "arkivet" i onödan. Jag försökte länge och väl för att få till det men lyckades inte, och eftersom att det egentligen inte var en del av uppgiften, så lät jag det fungera så här.
 
 
